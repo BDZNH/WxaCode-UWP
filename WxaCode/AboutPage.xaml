@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="WxaCode.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WxaCode"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextWrapping = "Wrap" Text="这是做什么用的 ? " FontSize="30" Grid.Row="0" />
+        <TextBlock TextWrapping = "Wrap" Text="输入你的小程序的appid和appsecret，并且填入相应的参数，可以获取一个带参数(也即scene)的小程序码" FontSize="15" Grid.Row="1"/>
+
+        <TextBlock TextWrapping = "Wrap" Text="这个应用安全吗 ? " FontSize="30" Padding="0,30,0,0" Grid.Row="2"/>
+        <TextBlock TextWrapping = "Wrap" Text="这个应用默认情况下是不会缓存您输入的 appid、 appsecret 和 access_token 的，应用退出后您输入的所有信息都会消失" FontSize="15" Grid.Row="3" />
+
+        <TextBlock TextWrapping = "Wrap" Text="这个应用是如何工作的 ? " FontSize="30" Padding="0,30,0,0" Grid.Row="4"/>
+        <HyperlinkButton Content="微信官方文档获取小程序码" NavigateUri="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/qr-code.html" Grid.Row="5" />
+        <HyperlinkButton Content="微信官方文档获取小程序码(接口B)" NavigateUri="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html" Grid.Row="6" />
+        <HyperlinkButton Content="微信官方文档接口调用凭证" NavigateUri="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/access-token/auth.getAccessToken.html" Grid.Row="7" />
+        <HyperlinkButton Content="在GitHub上查看源码" NavigateUri="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/access-token/auth.getAccessToken.html" Grid.Row="8" />
+
+
+    </Grid>
+</Page>

@@ -11,19 +11,12 @@ namespace WxaCode
 {
     class WxaCode
     {
-        private string appid;
-        private string appsecret;
+        public string appid;
+        public string appsecret;
         private string accessToken;
         public string lasstErrorMsg;
-        public WxaCode(string _appid,string _appsecret)
+        public WxaCode()
         {
-            appid = _appid;
-            appsecret = _appsecret;
-        }
-
-        public WxaCode(string _appid, string _appsecret,bool _tmpwxacode)
-        {
-            //ignore
         }
 
         public string refreshAccessToken()
@@ -35,7 +28,7 @@ namespace WxaCode
             url.Append(@"&secret=");
             url.Append(appsecret);
 
-            List<Byte> data = handlerHttpsCallBack(url.ToString(), false, null);
+            List<Byte> data = HandlerHttpsCallBack(url.ToString(), false, null);
             if(data!=null)
             {
                 byte[] response = data.ToArray();
@@ -59,21 +52,24 @@ namespace WxaCode
             return null;
         }
 
-        public bool equals(string _appid, string _appsecret)
+        public bool IsNeedRefreshAccesstoken(string _appid, string _appsecret)
         {
-            if(appid.Equals(_appid) && appsecret.Equals(_appsecret))
-            {
-                return true;
-            }
-            else
+            if(appid is null || appsecret is null)
             {
                 appid = _appid;
                 appsecret = _appsecret;
-                return false;
+                return true;
             }
+            if(_appid != appid || _appsecret != appsecret)
+            {
+                appid = _appid;
+                appsecret = _appsecret;
+                return true;
+            }
+            return false;
         }
 
-        public byte[] getWxaCode(String wxacodeparams,Boolean refreshAccesstoken)
+        public byte[] GetWxaCodeUnlimited(string wxacodeparams,bool refreshAccesstoken)
         {
             if(refreshAccesstoken)
             {
@@ -83,10 +79,9 @@ namespace WxaCode
                     // maybe network error or appid/appsecret error
                     return null;
                 }
-            }
-            string url = @"https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=";
+            }string url = @"https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=";
             url += accessToken;
-            List<byte> data = handlerHttpsCallBack(url, true, wxacodeparams);
+            List<byte> data = HandlerHttpsCallBack(url, true, wxacodeparams);
             if(data!=null)
             {
                 byte[] response = data.ToArray();
@@ -102,7 +97,7 @@ namespace WxaCode
             return null;
         }
 
-        private List<byte> handlerHttpsCallBack(string url,bool post,string wxacodeparams)
+        private List<byte> HandlerHttpsCallBack(string url,bool post,string wxacodeparams)
         {
             var data = new List<byte>();
             var request = (HttpWebRequest)WebRequest.Create(url);

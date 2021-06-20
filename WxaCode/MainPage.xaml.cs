@@ -29,121 +29,39 @@ namespace WxaCode
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
-        WxaCode wxaCode;
-        static byte[] data;
-
         public MainPage()
         {
             this.InitializeComponent();
         }
 
-        private async void GetWxaCodeUnlimited(object sender, RoutedEventArgs e)
+        private void NaviView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            wxacodeimage.Source = new BitmapImage(new Uri("ms-appx:///Assets/Loading.png"));
-            Button button = sender as Button;
-            button.IsEnabled = false;
-            if (wxaCode==null)
+            if(args.IsSettingsInvoked)
             {
-                wxaCode = new WxaCode(appid.Text, appsecret.Text);
+                this.ContentFrame.Navigate(typeof(SettingPage));
             }
-            data = null;
-            data = wxaCode.getWxaCode(getwxacodeParam(), false);
-            if(data!=null)
-            {
-                BitmapImage bitmapImage = new BitmapImage();
-                using(InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
-                {
-                    await stream.WriteAsync(data.AsBuffer());
-                    stream.Seek(0);
-                    await bitmapImage.SetSourceAsync(stream);
-                    wxacodeimage.Source = bitmapImage;
-                }
-            }
-            else
-            {
-                var dialog = new MessageDialog(wxaCode.lasstErrorMsg, "好像发生了一些错误");
-                dialog.Commands.Add(new UICommand("确定", cmd => { }, commandId: 0));
-                await dialog.ShowAsync();
-            }
-            button.IsEnabled = true;
-        }
 
-        private void ToggleAutoColorSwitch(object sender, RoutedEventArgs e)
-        {
-            if(auto_color!=null)
+            var tag = args.InvokedItemContainer.Tag.ToString();
+            var page = 
+                tag == "HomePage" ? typeof(HomePage) : 
+                tag == "AboutPage" ? typeof(AboutPage) : null;
+            if(page!=null && !Type.Equals(page,ContentFrame.CurrentSourcePageType))
             {
-                if(auto_color.IsOn==true)
-                {
-                    if(line_corlor_red!=null)
-                    {
-                        line_corlor_red.Value = 0;
-                    }
-
-                    if(line_corlor_green!=null)
-                    {
-                        line_corlor_green.Value = 0;
-                    }
-                    
-                    if(line_corlor_blue!=null)
-                    {
-                        line_corlor_blue.Value = 0;
-                    }
-                }
+                this.ContentFrame.Navigate(page);
             }
         }
 
-        private string getwxacodeParam()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            JObject jobject = new JObject();
-            jobject.Add("scene", scene.Text);
-            jobject.Add("width", (int)wxacode_width.Value);
-            jobject.Add("auto_color", auto_color.IsOn);
-            if (auto_color.IsOn == false)
+            if(ContentFrame.CurrentSourcePageType == null)
             {
-                JObject linecolor = new JObject();
-                linecolor.Add("r", (int)line_corlor_red.Value);
-                linecolor.Add("g", (int)line_corlor_red.Value);
-                linecolor.Add("b", (int)line_corlor_red.Value);
-                jobject.Add("line_color", linecolor);
-            }
-            jobject.Add("is_hyaline", is_hyaline.IsOn);
-            return jobject.ToString();
-        }
-
-        private async void SaveWxacodeImage(object sender, RoutedEventArgs e)
-        {
-            if (data != null)
-            {
-                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-                savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
-                savePicker.FileTypeChoices.Add("Image", new List<string>() { ".jpg" });
-                savePicker.SuggestedFileName = "WxaCode";
-                Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
-                if (file != null)
+                if(NaviView!=null)
                 {
-                    await FileIO.WriteBytesAsync(file, data);
-                    Windows.Storage.Provider.FileUpdateStatus status = await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
-                    if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
-                    {
-                        var dialog = new MessageDialog("保存成功", "保存小程序码");
-                        dialog.Commands.Add(new UICommand("确定", cmd => { }, commandId: 0));
-                        await dialog.ShowAsync();
-                    }
-                    else
-                    {
-                        var dialog = new MessageDialog("保存失败", "保存小程序码");
-                        dialog.Commands.Add(new UICommand("确定", cmd => { }, commandId: 0));
-                        await dialog.ShowAsync();
-                    }
+                    NaviView.SelectedItem = NaviView.MenuItems.ElementAt(0);
                 }
+                this.ContentFrame.Navigate(typeof(HomePage));
             }
-            else
-            {
-                var dialog = new MessageDialog("您还没有获取过小程序码", "保存小程序码");
-                dialog.Commands.Add(new UICommand("确定", cmd => { }, commandId: 0));
-                await dialog.ShowAsync();
-            }
+            base.OnNavigatedTo(e);
         }
     }
 }
