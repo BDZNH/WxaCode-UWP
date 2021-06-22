@@ -71,7 +71,15 @@ namespace WxaCode
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // 确保当前窗口处于活动状态
+
                 Window.Current.Activate();
+
+                Windows.UI.Core.Preview.SystemNavigationManagerPreview.GetForCurrentView().CloseRequested += (ss, ee) =>
+                {
+                    WxaCodeParams.GetInstance().Save();
+                    WxaCode.GetInstance().Save();
+                };
+
             }
         }
 

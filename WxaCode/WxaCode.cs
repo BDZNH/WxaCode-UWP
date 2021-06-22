@@ -11,12 +11,24 @@ namespace WxaCode
 {
     class WxaCode
     {
+        private static WxaCode instance;
         public string appid;
         public string appsecret;
         private string accessToken;
         public string lasstErrorMsg;
-        public WxaCode()
+        private WxaCode()
         {
+            appid = (string)LocalSettings.Get("appid", "");
+            appsecret = (string)LocalSettings.Get("appsecret", "");
+        }
+
+        public static WxaCode GetInstance()
+        {
+            if(instance==null)
+            {
+                instance = new WxaCode();
+            }
+            return instance;
         }
 
         public string refreshAccessToken()
@@ -134,6 +146,19 @@ namespace WxaCode
                     }
                 }
                 return data;
+            }
+        }
+        public void Save()
+        {
+            if(LocalSettings.IfSaveAppidAndAppsecret())
+            {
+                LocalSettings.Set("appid", appid);
+                LocalSettings.Set("appsecret", appsecret);
+            }
+            else
+            {
+                LocalSettings.Set("appid", "");
+                LocalSettings.Set("appsecret", "");
             }
         }
     }

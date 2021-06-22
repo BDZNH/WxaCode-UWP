@@ -24,28 +24,24 @@ namespace WxaCode
 {
     public sealed partial class HomePage : Page
     {
-        private static WxaCode wxaCode;
-        private static WxaCodeParams wxacodeparams;
+        private WxaCode wxaCode;
+        private WxaCodeParams wxacodeparams;
         private static byte[] qrcode;
         public HomePage()
         {
             this.InitializeComponent();
-            if(wxaCode!=null)
-            {
-                appid.Text = wxaCode.appid;
-                appsecret.Text = wxaCode.appsecret;
-            }
-            if(wxacodeparams!=null)
-            {
-                scene.Text = wxacodeparams.scene;
-                page.Text = wxacodeparams.page;
-                wxacode_width.Value = wxacodeparams.width;
-                auto_color.IsOn = wxacodeparams.auto_color;
-                line_corlor_red.Value = wxacodeparams.line_color.r;
-                line_corlor_green.Value = wxacodeparams.line_color.g;
-                line_corlor_blue.Value = wxacodeparams.line_color.b;
-                is_hyaline.IsOn = wxacodeparams.is_hyaline;
-            }
+            wxaCode = WxaCode.GetInstance();
+            AppidTextBlock.Text = wxaCode.appid;
+            AppsecretTextBlock.Text = wxaCode.appsecret;
+            wxacodeparams = WxaCodeParams.GetInstance();
+            WxacodeSceneTextBlock.Text = wxacodeparams.scene;
+            WxacodePageTextBlock.Text = wxacodeparams.page;
+            WxacodeWidthSlider.Value = wxacodeparams.width;
+            WxacodeAutoColorSwitch.IsOn = wxacodeparams.auto_color;
+            WxacodeLineColorRedSlider.Value = wxacodeparams.line_color.r;
+            WxacodeLineColorGreenSlier.Value = wxacodeparams.line_color.g;
+            WxacodeLineColorBlueSlider.Value = wxacodeparams.line_color.b;
+            WxacodeIsHyalineSwitch.IsOn = wxacodeparams.is_hyaline;
             if(qrcode!=null)
             {
                 SetByteArrayAsImageSource(qrcode);
@@ -62,12 +58,9 @@ namespace WxaCode
             wxacodeimage.Source = new BitmapImage(new Uri("ms-appx:///Assets/Loading.png"));
             Button button = sender as Button;
             button.IsEnabled = false;
-            if (wxaCode == null)
-            {
-                wxaCode = new WxaCode();
-            }
+
             qrcode = null;
-            bool needRefresh = wxaCode.IsNeedRefreshAccesstoken(appid.Text, appsecret.Text);
+            bool needRefresh = wxaCode.IsNeedRefreshAccesstoken(AppidTextBlock.Text, AppsecretTextBlock.Text);
             qrcode = wxaCode.GetWxaCodeUnlimited(GetwxacodeParam(), needRefresh);
             if (qrcode != null)
             {
@@ -84,24 +77,27 @@ namespace WxaCode
 
         private void ToggleAutoColorSwitch(object sender, RoutedEventArgs e)
         {
-            if (auto_color != null)
+            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+
+            WxaCodeParams.GetInstance().auto_color = toggleSwitch.IsOn;
+            if (WxacodeAutoColorSwitch.IsOn == true)
             {
-                if (auto_color.IsOn == true)
+                if (WxacodeLineColorRedSlider != null)
                 {
-                    if (line_corlor_red != null)
-                    {
-                        line_corlor_red.Value = 0;
-                    }
+                    WxacodeLineColorRedSlider.Value = 0;
+                    wxacodeparams.line_color.r = (int)WxacodeLineColorRedSlider.Value;
+                }
 
-                    if (line_corlor_green != null)
-                    {
-                        line_corlor_green.Value = 0;
-                    }
+                if (WxacodeLineColorGreenSlier != null)
+                {
+                    WxacodeLineColorGreenSlier.Value = 0;
+                    wxacodeparams.line_color.g = (int)WxacodeLineColorGreenSlier.Value;
+                }
 
-                    if (line_corlor_blue != null)
-                    {
-                        line_corlor_blue.Value = 0;
-                    }
+                if (WxacodeLineColorBlueSlider != null)
+                {
+                    WxacodeLineColorBlueSlider.Value = 0;
+                    wxacodeparams.line_color.b = (int)WxacodeLineColorBlueSlider.Value;
                 }
             }
         }
@@ -109,18 +105,18 @@ namespace WxaCode
         private string GetwxacodeParam()
         {
             JObject jobject = new JObject();
-            jobject.Add("scene", scene.Text);
-            jobject.Add("width", (int)wxacode_width.Value);
-            jobject.Add("auto_color", auto_color.IsOn);
-            if (auto_color.IsOn == false)
+            jobject.Add("scene", AppsecretTextBlock.Text);
+            jobject.Add("width", (int)WxacodeWidthSlider.Value);
+            jobject.Add("auto_color", WxacodeAutoColorSwitch.IsOn);
+            if (WxacodeAutoColorSwitch.IsOn == false)
             {
                 JObject linecolor = new JObject();
-                linecolor.Add("r", (int)line_corlor_red.Value);
-                linecolor.Add("g", (int)line_corlor_green.Value);
-                linecolor.Add("b", (int)line_corlor_blue.Value);
+                linecolor.Add("r", (int)WxacodeLineColorRedSlider.Value);
+                linecolor.Add("g", (int)WxacodeLineColorGreenSlier.Value);
+                linecolor.Add("b", (int)WxacodeLineColorBlueSlider.Value);
                 jobject.Add("line_color", linecolor);
             }
-            jobject.Add("is_hyaline", is_hyaline.IsOn);
+            jobject.Add("is_hyaline", WxacodeIsHyalineSwitch.IsOn);
             return jobject.ToString();
         }
 
@@ -173,41 +169,73 @@ namespace WxaCode
 
         private bool CheckArgValid()
         {
-            if(appid.Text is null || appid.Text.Length==0)
+            if(AppidTextBlock.Text is null || AppidTextBlock.Text.Length==0)
             {
-                appid.Focus(FocusState.Programmatic);
+                AppidTextBlock.Focus(FocusState.Programmatic);
                 return false;
             }
-            if(appsecret.Text is null || appsecret.Text.Length==0)
+            if(AppsecretTextBlock.Text is null || AppsecretTextBlock.Text.Length==0)
             {
-                appsecret.Focus(FocusState.Programmatic);
+                AppsecretTextBlock.Focus(FocusState.Programmatic);
                 return false;
             }
-            if(scene.Text is null || scene.Text.Length == 0)
+            if(WxacodeSceneTextBlock.Text is null || WxacodeSceneTextBlock.Text.Length == 0)
             {
-                scene.Focus(FocusState.Programmatic);
+                WxacodeSceneTextBlock.Focus(FocusState.Programmatic);
                 return false;
             }
-            if(wxacodeparams==null)
+
+            wxacodeparams.scene = WxacodeSceneTextBlock.Text;
+            wxacodeparams.width = (int)WxacodeWidthSlider.Value;
+            wxacodeparams.auto_color = WxacodeAutoColorSwitch.IsOn;
+            wxacodeparams.line_color.r = (int)WxacodeLineColorRedSlider.Value;
+            wxacodeparams.line_color.g = (int)WxacodeLineColorGreenSlier.Value;
+            wxacodeparams.line_color.b = (int)WxacodeLineColorBlueSlider.Value;
+            wxacodeparams.is_hyaline = WxacodeIsHyalineSwitch.IsOn;
+            if(WxacodePageTextBlock.Text !=null && WxacodePageTextBlock.Text.Length >0)
             {
-                wxacodeparams = new WxaCodeParams();
-            }
-            wxacodeparams.scene = scene.Text;
-            wxacodeparams.width = (int)wxacode_width.Value;
-            wxacodeparams.auto_color = auto_color.IsOn;
-            wxacodeparams.line_color.r = (int)(line_corlor_red.Value);
-            wxacodeparams.line_color.g = (int)(line_corlor_green.Value);
-            wxacodeparams.line_color.b = (int)(line_corlor_blue.Value);
-            wxacodeparams.is_hyaline = is_hyaline.IsOn;
-            if(page.Text !=null && page.Text.Length >0)
-            {
-                wxacodeparams.page = page.Text;
+                wxacodeparams.page = WxacodePageTextBlock.Text;
             }
             else
             {
                 wxacodeparams.page = "pages/index/index";
             }
             return true;
+        }
+
+        private void WxacodeWidthSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            if(WxacodeWidthSlider!=null)
+            {
+                WxaCodeParams.GetInstance().width = (int)WxacodeWidthSlider.Value;
+            }
+            
+        }
+
+        private void WxacodeIsHyalineSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            if(WxacodeIsHyalineSwitch!=null)
+            {
+                WxaCodeParams.GetInstance().is_hyaline = WxacodeIsHyalineSwitch.IsOn;
+            }
+        }
+
+        private void WxacodeLineColorRedSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            Slider slider = sender as Slider;
+            WxaCodeParams.GetInstance().line_color.r = (int)slider.Value;
+        }
+
+        private void WxacodeLineColorGreenSlier_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            Slider slider = sender as Slider;
+            WxaCodeParams.GetInstance().line_color.g = (int)slider.Value;
+        }
+
+        private void WxacodeLineColorBlueSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            Slider slider = sender as Slider;
+            WxaCodeParams.GetInstance().line_color.b = (int)slider.Value;
         }
     }
 }

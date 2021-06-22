@@ -10,7 +10,9 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock Text="Developing" FontSize="30" />
+            <ToggleSwitch Header="退出应用时在应用本地保存 appid 和 appsecret" x:Name="SaveAppidAndAppsecretSwitch" Toggled="SaveAppidAndAppsecret_Toggled" />
+            <ToggleSwitch Header="退出应用时在应用本地保存 access_token" x:Name="SvaveAppAccessTokenSwitch" Toggled="SvaveAppAccessToken_Toggled" Margin="0,10,0,0"/>
+            <ToggleSwitch Header="退出应用时在应用本地保存小程序码参数" x:Name="SaveWxacodeParamSwitch" Toggled="SaveWxacodeParam_Toggled" Margin="0,10,0,0"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -41,7 +41,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Grid x:Name="WxaCodeParams" Width="350" Margin="10,10,10,10" Grid.Row="0" Grid.Column="0" >
+                <Grid x:Name="WxaCodeParamsGrid" Width="350" Margin="10,10,10,10" Grid.Row="0" Grid.Column="0" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="2*"/>
@@ -61,29 +61,29 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBox x:Name="appid" Header="Appid" PlaceholderText="必须填写，应用不缓存" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" />
-                    <TextBox x:Name="appsecret" Header="Appsecret" PlaceholderText="必须填写，应用不缓存" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" />
-                    <TextBox x:Name="scene" Header="请输入 scene:" PlaceholderText="不超过32个字符(必须填写)" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"/>
-                    <TextBox x:Name="page" Header="请输入 page:" PlaceholderText="已发布的page(可不填，默认为 pages/index/index )" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"/>
+                    <TextBox x:Name="AppidTextBlock" Header="Appid" PlaceholderText="必须填写，应用不缓存" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" />
+                    <TextBox x:Name="AppsecretTextBlock" Header="Appsecret" PlaceholderText="必须填写，应用不缓存" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" />
+                    <TextBox x:Name="WxacodeSceneTextBlock" Header="请输入 scene:" PlaceholderText="不超过32个字符(必须填写)" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"/>
+                    <TextBox x:Name="WxacodePageTextBlock" Header="请输入 page:" PlaceholderText="已发布的page(可不填，默认为 pages/index/index )" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"/>
 
-                    <Slider x:Name="wxacode_width" Margin="5,5,0,5" VerticalAlignment="Center" AutomationProperties.Name="simple slider" Minimum="280" Maximum="1280" StepFrequency="1" SmallChange="1" LargeChange="100" Value="430" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <Slider x:Name="WxacodeWidthSlider" Margin="5,5,0,5" VerticalAlignment="Center" AutomationProperties.Name="simple slider" Minimum="280" Maximum="1280" StepFrequency="1" SmallChange="1" LargeChange="100" Value="430" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" ValueChanged="WxacodeWidthSlider_ValueChanged"/>
                     <TextBlock Text="小程序码宽度" Margin="5,5,0,5" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2"/>
-                    <TextBlock Text="{x:Bind wxacode_width.Value.ToString(), Mode=OneWay}" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="3" />
+                    <TextBlock Text="{x:Bind WxacodeWidthSlider.Value.ToString(), Mode=OneWay}" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="3" />
 
-                    <ToggleSwitch x:Name="auto_color" Header="自动配置线条颜色" AutomationProperties.Name="simple ToggleSwitch" IsOn="True" Toggled="ToggleAutoColorSwitch" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" />
-                    <ToggleSwitch x:Name="is_hyaline" Header="透明底色" AutomationProperties.Name="simple ToggleSwitch" Margin="5,0,0,0" VerticalAlignment="Center" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" />
+                    <ToggleSwitch x:Name="WxacodeAutoColorSwitch" Header="自动配置线条颜色" AutomationProperties.Name="simple ToggleSwitch" Toggled="ToggleAutoColorSwitch" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" />
+                    <ToggleSwitch x:Name="WxacodeIsHyalineSwitch" Header="透明底色" AutomationProperties.Name="simple ToggleSwitch" Margin="5,0,0,0" VerticalAlignment="Center" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Toggled="WxacodeIsHyalineSwitch_Toggled" />
 
-                    <Slider IsEnabled="{x:Bind auto_color.IsOn.Equals(x:False), Mode=OneWay}" x:Name="line_corlor_red" Margin="5,5,0,5" VerticalAlignment="Center" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Minimum="0" Maximum="255" StepFrequency="1" SmallChange="1" LargeChange="10" Value="0"  />
+                    <Slider IsEnabled="{x:Bind WxacodeAutoColorSwitch.IsOn.Equals(x:False), Mode=OneWay}" x:Name="WxacodeLineColorRedSlider" Margin="5,5,0,5" VerticalAlignment="Center" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Minimum="0" Maximum="255" StepFrequency="1" SmallChange="1" LargeChange="10" Value="0" ValueChanged="WxacodeLineColorRedSlider_ValueChanged"  />
                     <TextBlock Text="线条颜色(red)" Margin="5,5,0,5" VerticalAlignment="Center" Grid.Row="6" Grid.Column="2" />
-                    <TextBlock Text="{x:Bind line_corlor_red.Value.ToString(), Mode=OneWay}" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="3" />
+                    <TextBlock Text="{x:Bind WxacodeLineColorRedSlider.Value.ToString(), Mode=OneWay}" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="3" />
 
-                    <Slider IsEnabled="{x:Bind auto_color.IsOn.Equals(x:False), Mode=OneWay}" x:Name="line_corlor_green" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,5,0,5" Minimum="0" Maximum="255" StepFrequency="1" SmallChange="1" LargeChange="10" Value="0"  />
+                    <Slider IsEnabled="{x:Bind WxacodeAutoColorSwitch.IsOn.Equals(x:False), Mode=OneWay}" x:Name="WxacodeLineColorGreenSlier" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,5,0,5" Minimum="0" Maximum="255" StepFrequency="1" SmallChange="1" LargeChange="10" Value="0" ValueChanged="WxacodeLineColorGreenSlier_ValueChanged"  />
                     <TextBlock Text="线条颜色(green)" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Margin="5,5,0,5" />
-                    <TextBlock Text="{x:Bind line_corlor_green.Value.ToString(), Mode=OneWay}" Grid.Row="7" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,5,5,5" />
+                    <TextBlock Text="{x:Bind WxacodeLineColorGreenSlier.Value.ToString(), Mode=OneWay}" Grid.Row="7" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,5,5,5" />
 
-                    <Slider IsEnabled="{x:Bind auto_color.IsOn.Equals(x:False), Mode=OneWay}" x:Name="line_corlor_blue" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,5,0,5" Minimum="0" Maximum="255" StepFrequency="1" SmallChange="1" LargeChange="10" Value="0"  />
+                    <Slider IsEnabled="{x:Bind WxacodeAutoColorSwitch.IsOn.Equals(x:False), Mode=OneWay}" x:Name="WxacodeLineColorBlueSlider" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,5,0,5" Minimum="0" Maximum="255" StepFrequency="1" SmallChange="1" LargeChange="10" Value="0" ValueChanged="WxacodeLineColorBlueSlider_ValueChanged"  />
                     <TextBlock Text="线条颜色(blue)" Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Margin="5,5,0,5" />
-                    <TextBlock Text="{x:Bind line_corlor_blue.Value.ToString(), Mode=OneWay}" Grid.Row="8" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,5,5,5" />
+                    <TextBlock Text="{x:Bind WxacodeLineColorBlueSlider.Value.ToString(), Mode=OneWay}" Grid.Row="8" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,5,5,5" />
 
                     <Button Style="{StaticResource AccentButtonStyle}" Content="获取小程序码" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Click="GetWxaCodeUnlimited" />
                     <Button Style="{StaticResource AccentButtonStyle}" Content="保存小程序码" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Click="SaveWxacodeImage"/>
