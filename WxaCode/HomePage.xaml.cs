@@ -19,21 +19,21 @@ using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json.Linq;
 using Windows.Storage.Streams;
 using Windows.Storage;
+using Windows.UI;
 
 namespace WxaCode
 {
     public sealed partial class HomePage : Page
     {
-        private WxaCode wxaCode;
-        private WxaCodeParams wxacodeparams;
+        private SolidColorBrush lineColorBrush = new SolidColorBrush();
+        private WxaCode wxaCode = WxaCode.GetInstance();
+        private WxaCodeParams wxacodeparams = WxaCodeParams.GetInstance();
         private static byte[] qrcode;
         public HomePage()
         {
             this.InitializeComponent();
-            wxaCode = WxaCode.GetInstance();
             AppidTextBlock.Text = wxaCode.appid;
             AppsecretTextBlock.Text = wxaCode.appsecret;
-            wxacodeparams = WxaCodeParams.GetInstance();
             WxacodeSceneTextBlock.Text = wxacodeparams.scene;
             WxacodePageTextBlock.Text = wxacodeparams.page;
             WxacodeWidthSlider.Value = wxacodeparams.width;
@@ -100,6 +100,7 @@ namespace WxaCode
                     wxacodeparams.line_color.b = (int)WxacodeLineColorBlueSlider.Value;
                 }
             }
+            UpdateLineColorPreview();
         }
 
         private string GetwxacodeParam()
@@ -224,18 +225,30 @@ namespace WxaCode
         {
             Slider slider = sender as Slider;
             WxaCodeParams.GetInstance().line_color.r = (int)slider.Value;
+            UpdateLineColorPreview();
         }
 
         private void WxacodeLineColorGreenSlier_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             Slider slider = sender as Slider;
             WxaCodeParams.GetInstance().line_color.g = (int)slider.Value;
+            UpdateLineColorPreview();
         }
 
         private void WxacodeLineColorBlueSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             Slider slider = sender as Slider;
             WxaCodeParams.GetInstance().line_color.b = (int)slider.Value;
+            UpdateLineColorPreview();
+        }
+
+        private void UpdateLineColorPreview()
+        {
+            byte r = (byte)WxaCodeParams.GetInstance().line_color.r;
+            byte g = (byte)WxaCodeParams.GetInstance().line_color.g;
+            byte b = (byte)WxaCodeParams.GetInstance().line_color.b;
+            lineColorBrush.Color = Color.FromArgb(255, r, g, b);
+            ColorPreview.Fill = lineColorBrush;
         }
     }
 }
