@@ -46,6 +46,11 @@ namespace WxaCode
             {
                 SetByteArrayAsImageSource(qrcode);
             }
+            if(LocalSettings.IfSaveAppidAndAppsecret() || LocalSettings.IfSaveWxacodeParam())
+            {
+                GetWxaCodeButton.Content = "获取小程序码并保留参数";
+                GetWxaCodeButton.SetValue(Grid.ColumnSpanProperty, 3);
+            }
         }
 
         private async void GetWxaCodeUnlimited(object sender, RoutedEventArgs e)
@@ -203,8 +208,10 @@ namespace WxaCode
             }
             else
             {
-                wxacodeparams.page = "pages/index/index";
+                wxacodeparams.page = "";
             }
+            wxacodeparams.Save();
+            wxaCode.Save();
             return true;
         }
 

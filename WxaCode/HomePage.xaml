@@ -83,8 +83,8 @@
                     <Slider IsEnabled="{x:Bind WxacodeAutoColorSwitch.IsOn.Equals(x:False), Mode=OneWay}" x:Name="WxacodeLineColorBlueSlider" Foreground="Blue" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,5,0,5" Minimum="0" Maximum="255" StepFrequency="1" SmallChange="1" LargeChange="10" Value="0" ValueChanged="WxacodeLineColorBlueSlider_ValueChanged"  />
                     <TextBlock Text="线条颜色(blue)" Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Margin="5,5,0,5" />
 
-                    <Button Style="{StaticResource AccentButtonStyle}" Content="获取小程序码" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Click="GetWxaCodeUnlimited" />
-                    <Button Style="{StaticResource AccentButtonStyle}" Content="保存小程序码" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Click="SaveWxacodeImage"/>
+                    <Button Style="{StaticResource AccentButtonStyle}" Content="获取小程序码" x:Name="GetWxaCodeButton" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Click="GetWxaCodeUnlimited" />
+                    <Button Style="{StaticResource AccentButtonStyle}" Content="保存小程序码" x:Name="SaveWxaCodeButton" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Click="SaveWxacodeImage"/>
 
                 </Grid>
                 <Image x:Name="wxacodeimage" Source="/Assets/wxacodesample.jpg" MaxWidth="350" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
