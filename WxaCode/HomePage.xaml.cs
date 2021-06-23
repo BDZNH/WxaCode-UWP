@@ -107,7 +107,10 @@ namespace WxaCode
         {
             JObject jobject = new JObject();
             jobject.Add("scene", AppsecretTextBlock.Text);
-            jobject.Add("page", wxacodeparams.page);
+            if (WxacodePageTextBlock.Text != null && WxacodePageTextBlock.Text.Length > 0)
+            {
+                jobject.Add("page", WxacodePageTextBlock.Text);
+            }
             jobject.Add("width", (int)WxacodeWidthSlider.Value);
             jobject.Add("auto_color", WxacodeAutoColorSwitch.IsOn);
             if (WxacodeAutoColorSwitch.IsOn == false)
