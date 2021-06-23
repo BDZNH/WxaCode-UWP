@@ -20,6 +20,7 @@ namespace WxaCode
         {
             appid = (string)LocalSettings.Get("appid", "");
             appsecret = (string)LocalSettings.Get("appsecret", "");
+            accessToken = (string)LocalSettings.Get("accesstoken", "");
         }
 
         public static WxaCode GetInstance()
@@ -83,7 +84,7 @@ namespace WxaCode
 
         public byte[] GetWxaCodeUnlimited(string wxacodeparams,bool refreshAccesstoken)
         {
-            if(refreshAccesstoken)
+            if(refreshAccesstoken || accessToken==null || accessToken.Length ==0)
             {
                 accessToken = refreshAccessToken();
                 if(accessToken==null)
@@ -159,6 +160,14 @@ namespace WxaCode
             {
                 LocalSettings.Set("appid", "");
                 LocalSettings.Set("appsecret", "");
+            }
+            if(LocalSettings.IfSaveAccessToken())
+            {
+                LocalSettings.Set("accesstoken", accessToken);
+            }
+            else
+            {
+                LocalSettings.Set("accesstoken", "");
             }
         }
     }
