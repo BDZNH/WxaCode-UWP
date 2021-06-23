@@ -1,6 +1,6 @@
 # WxaCode-UWP
 用于获取小程序码的 UWP 软件
-
+![](pic/homepage.jpg)
 ## 你需要提供什么
 使用这个软件，你需要提供你的小程序的 appid 和 appsecret 以获取小程序码
 
