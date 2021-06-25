@@ -68,7 +68,15 @@ namespace WxaCode
                     // 并通过将所需信息作为导航参数传入来配置
                     // 参数
                     CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    if(!(bool)LocalSettings.Get("HaveReadPrivacyPolicy",false))
+                    {
+                        rootFrame.Navigate(typeof(PrivacyPolicyPage), e.Arguments);
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    }
+                    
                 }
                 // 确保当前窗口处于活动状态
 
