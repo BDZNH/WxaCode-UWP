@@ -210,8 +210,8 @@ namespace WxaCode
             {
                 wxacodeparams.page = "";
             }
-            wxacodeparams.Save();
-            wxaCode.Save();
+            //wxacodeparams.Save();
+            //wxaCode.Save();
             return true;
         }
 
