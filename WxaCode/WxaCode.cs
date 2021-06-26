@@ -104,7 +104,16 @@ namespace WxaCode
                 }
                 else
                 {
-                    lasstErrorMsg = System.Text.Encoding.ASCII.GetString(response);
+                    string message = System.Text.Encoding.ASCII.GetString(response);
+                    if(message.Contains("access_token expired"))
+                    {
+                        return GetWxaCodeUnlimited(wxacodeparams, true);
+                    }
+                    else
+                    {
+                        lasstErrorMsg = message;
+                    }
+                    
                 }
             }
             return null;
