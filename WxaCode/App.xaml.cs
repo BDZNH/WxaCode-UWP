@@ -103,11 +103,11 @@ namespace WxaCode
         /// <param name="e">有关挂起请求的详细信息。</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
+            WxaCode.GetInstance().Save();
+            WxaCodeParams.GetInstance().Save();
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
-            WxaCode.GetInstance().Save();
-            WxaCodeParams.GetInstance().Save();
         }
     }
 }

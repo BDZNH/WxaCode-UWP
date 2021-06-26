@@ -46,11 +46,6 @@ namespace WxaCode
             {
                 SetByteArrayAsImageSource(qrcode);
             }
-            if(LocalSettings.IfSaveAppidAndAppsecret() || LocalSettings.IfSaveWxacodeParam())
-            {
-                GetWxaCodeButton.Content = "获取小程序码并保留参数";
-                GetWxaCodeButton.SetValue(Grid.ColumnSpanProperty, 3);
-            }
         }
 
         private async void GetWxaCodeUnlimited(object sender, RoutedEventArgs e)
@@ -118,14 +113,11 @@ namespace WxaCode
             }
             jobject.Add("width", (int)WxacodeWidthSlider.Value);
             jobject.Add("auto_color", WxacodeAutoColorSwitch.IsOn);
-            if (WxacodeAutoColorSwitch.IsOn == false)
-            {
-                JObject linecolor = new JObject();
-                linecolor.Add("r", (int)WxacodeLineColorRedSlider.Value);
-                linecolor.Add("g", (int)WxacodeLineColorGreenSlier.Value);
-                linecolor.Add("b", (int)WxacodeLineColorBlueSlider.Value);
-                jobject.Add("line_color", linecolor);
-            }
+            JObject linecolor = new JObject();
+            linecolor.Add("r", (int)WxacodeLineColorRedSlider.Value);
+            linecolor.Add("g", (int)WxacodeLineColorGreenSlier.Value);
+            linecolor.Add("b", (int)WxacodeLineColorBlueSlider.Value);
+            jobject.Add("line_color", linecolor);
             jobject.Add("is_hyaline", WxacodeIsHyalineSwitch.IsOn);
             return jobject.ToString();
         }
@@ -210,8 +202,6 @@ namespace WxaCode
             {
                 wxacodeparams.page = "";
             }
-            //wxacodeparams.Save();
-            //wxaCode.Save();
             return true;
         }
 
@@ -260,6 +250,30 @@ namespace WxaCode
             byte b = (byte)WxaCodeParams.GetInstance().line_color.b;
             lineColorBrush.Color = Color.FromArgb(255, r, g, b);
             ColorPreview.Fill = lineColorBrush;
+        }
+
+        private void AppidTextBlock_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox appid = sender as TextBox;
+            WxaCode.GetInstance().appid = appid.Text;
+        }
+
+        private void AppsecretTextBlock_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox appsecret = sender as TextBox;
+            WxaCode.GetInstance().appsecret = appsecret.Text;
+        }
+
+        private void WxacodeSceneTextBlock_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox scene = sender as TextBox;
+            WxaCodeParams.GetInstance().scene = scene.Text;
+        }
+
+        private void WxacodePageTextBlock_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox page = sender as TextBox;
+            WxaCodeParams.GetInstance().page = page.Text;
         }
     }
 }

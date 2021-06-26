@@ -61,10 +61,10 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBox x:Name="AppidTextBlock" Header="Appid" PlaceholderText="必须填写，应用不缓存" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" />
-                    <TextBox x:Name="AppsecretTextBlock" Header="Appsecret" PlaceholderText="必须填写，应用不缓存" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" />
-                    <TextBox x:Name="WxacodeSceneTextBlock" Header="请输入 scene:" PlaceholderText="不超过32个字符(必须填写)" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"/>
-                    <TextBox x:Name="WxacodePageTextBlock" Header="请输入 page:" PlaceholderText="已发布的page(可不填，默认为 pages/index/index )" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"/>
+                    <TextBox x:Name="AppidTextBlock" Header="Appid" PlaceholderText="必须填写，应用不缓存" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" TextChanged="AppidTextBlock_TextChanged" />
+                    <TextBox x:Name="AppsecretTextBlock" Header="Appsecret" PlaceholderText="必须填写，应用不缓存" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" TextChanged="AppsecretTextBlock_TextChanged" />
+                    <TextBox x:Name="WxacodeSceneTextBlock" Header="请输入 scene:" PlaceholderText="不超过32个字符(必须填写)" Margin="5,5,5,5" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" TextChanged="WxacodeSceneTextBlock_TextChanged"/>
+                    <TextBox x:Name="WxacodePageTextBlock" Header="请输入 page:" PlaceholderText="已发布的page(可不填，默认为 pages/index/index )" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" TextChanged="WxacodePageTextBlock_TextChanged"/>
 
                     <Slider x:Name="WxacodeWidthSlider" Margin="5,5,0,5" VerticalAlignment="Center" AutomationProperties.Name="simple slider" Minimum="280" Maximum="1280" StepFrequency="1" SmallChange="1" LargeChange="100" Value="430" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" ValueChanged="WxacodeWidthSlider_ValueChanged"/>
                     <TextBlock Text="小程序码宽度" Margin="5,5,0,5" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2"/>

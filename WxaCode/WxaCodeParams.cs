@@ -16,7 +16,7 @@ namespace WxaCode
             page = (string)LocalSettings.Get("page", "");
             width = (int)LocalSettings.Get("width", 430);
             line_color = new LineColor();
-            auto_color = (bool)LocalSettings.Get("auto_color", true);
+            auto_color = (bool)LocalSettings.Get("auto_color", false);
             line_color.r = (int)LocalSettings.Get("red", 0);
             line_color.g = (int)LocalSettings.Get("green", 0);
             line_color.b = (int)LocalSettings.Get("blue", 0);
@@ -63,7 +63,7 @@ namespace WxaCode
                 LocalSettings.Set("scene", "");
                 LocalSettings.Set("page", "");
                 LocalSettings.Set("width", 430);
-                LocalSettings.Set("auto_color", true);
+                LocalSettings.Set("auto_color", false);
                 LocalSettings.Set("red", 0);
                 LocalSettings.Set("green", 0);
                 LocalSettings.Set("blue", 0);
