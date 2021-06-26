@@ -28,7 +28,7 @@
     </PackageCertificateKeyFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxPackageDir>C:\Users\BDZNH\source\repos\WxaCode\WxaCode\AppPackagesStore\</AppxPackageDir>
-    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
     <PackageCertificateThumbprint>6986F6A7082B9708EE749C125CD321CFF6158E66</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
