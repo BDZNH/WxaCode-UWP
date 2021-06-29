@@ -34,6 +34,8 @@
         <HyperlinkButton Content="微信官方文档接口调用凭证" NavigateUri="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/access-token/auth.getAccessToken.html" Grid.Row="7" />
         <HyperlinkButton Content="在GitHub上查看源码" NavigateUri="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/access-token/auth.getAccessToken.html" Grid.Row="8" />
 
+        <HyperlinkButton Content="请求参数" FontSize="30" Padding="0,30,0,0" Grid.Row="9"/>
+        <Image Source="/Assets/params.jpg" Grid.Row="10"/>
 
     </Grid>
 </Page>

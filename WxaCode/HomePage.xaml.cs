@@ -46,6 +46,7 @@ namespace WxaCode
             {
                 SetByteArrayAsImageSource(qrcode);
             }
+            UpdateLineColorPreview();
         }
 
         private async void GetWxaCodeUnlimited(object sender, RoutedEventArgs e)

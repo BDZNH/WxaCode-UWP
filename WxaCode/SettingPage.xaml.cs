@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
@@ -15,7 +16,7 @@ namespace WxaCode
         {
             this.InitializeComponent();
             localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            initSwitchState();
+            initViewState();
         }
 
         private void SaveAppidAndAppsecret_Toggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -36,7 +37,7 @@ namespace WxaCode
             localSettings.Values["saveWxacodeParam"] = ss.IsOn ? true : (object)false;
         }
 
-        private void initSwitchState()
+        private void initViewState()
         {
             if(SaveAppidAndAppsecretSwitch!=null)
             {
@@ -53,8 +54,21 @@ namespace WxaCode
             {
                 SaveWxacodeParamSwitch.IsOn = LocalSettings.IfSaveWxacodeParam();
             }
+
+            if(AppVersionTextBlock !=null)
+            {
+                AppVersionTextBlock.Text = GetAppVersion();
+            }
         }
 
-        
+        public static string GetAppVersion()
+        {
+            Package package = Package.Current;
+            PackageId packageId = package.Id;
+            PackageVersion version = packageId.Version;
+
+            return string.Format("版本: {0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+        }
+
     }
 }
