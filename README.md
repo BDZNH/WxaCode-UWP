@@ -8,4 +8,4 @@
 
 同时这个应用也做了动态响应布局，和一点点应用本地设置的例子（虽然不知道是否是正确的用法，但是看起来它正常工作了）
 
-todo: 第二个发布在微软应用商店的app
+微软应用商店下载此应用[https://www.microsoft.com/store/productId/9N904ZZRPJD8](https://www.microsoft.com/store/productId/9N904ZZRPJD8)
