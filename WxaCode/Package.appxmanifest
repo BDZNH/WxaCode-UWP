@@ -9,7 +9,7 @@
   <Identity
     Name="35230BDZNH.207084FA9BF10"
     Publisher="CN=16C28CEF-6E96-4E95-B0E5-BA77A7D56B37"
-    Version="1.0.2.0" />
+    Version="1.0.4.0" />
 
   <mp:PhoneIdentity PhoneProductId="edac776f-9a99-4124-9c98-ce75411d8f9d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
