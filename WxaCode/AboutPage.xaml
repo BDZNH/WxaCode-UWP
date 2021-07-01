@@ -35,7 +35,83 @@
         <HyperlinkButton Content="在GitHub上查看源码" NavigateUri="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/access-token/auth.getAccessToken.html" Grid.Row="8" />
 
         <HyperlinkButton Content="请求参数" FontSize="30" Padding="0,30,0,0" Grid.Row="9"/>
-        <Image Source="/Assets/params.jpg" Grid.Row="10"/>
+        <Grid Grid.Row="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Margin="0,10,0,0" Text="属性" Grid.Row="0" Grid.Column="0" />
+            <TextBlock Margin="0,10,0,0" Text="类型" Grid.Row="0" Grid.Column="1"/>
+            <TextBlock Margin="0,10,0,0" Text="默认值" Grid.Row="0" Grid.Column="2"/>
+            <TextBlock Margin="0,10,0,0" Text="必填" Grid.Row="0" Grid.Column="3"/>
+            <TextBlock Margin="0,10,0,0" Text="说明" Grid.Row="0" Grid.Column="4"/>
+
+            <TextBlock Margin="0,10,0,0" Text="scene" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock Margin="0,10,0,0" Text="string" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Margin="0,10,0,0" Text="" Grid.Row="1" Grid.Column="2"/>
+            <TextBlock Margin="0,10,0,0" Text="是" Grid.Row="1" Grid.Column="3"/>
+            <TextBlock Margin="0,10,0,0" TextWrapping = "Wrap" Grid.Row="1" Grid.Column="4">
+                <Run>最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：</Run>
+                <Run Foreground="DarkGray">!#$&amp;'()*+,/:;=?@-._~</Run>
+                <Run>，其它字符请自行编码为合法字符（因不支持  </Run>
+                <Run Foreground="DarkGray">%</Run>
+                <Run>，中文无法使用 </Run>
+                <Run Foreground="DarkGray">urlencode</Run>
+                <Run > 处理，请使用其他编码方式 ）</Run>
+            </TextBlock>
+
+            <TextBlock Margin="0,10,0,0" Text="page" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Margin="0,10,0,0" Text="string" Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Margin="0,10,0,0" Text="主页" Grid.Row="2" Grid.Column="2"/>
+            <TextBlock Margin="0,10,0,0" Text="否" Grid.Row="2" Grid.Column="3"/>
+            <TextBlock Margin="0,10,0,0" TextWrapping = "Wrap" Grid.Row="2" Grid.Column="4">
+                <Run>必须是已经发布的小程序存在的页面（否则报错），例如 </Run>
+                <Run Foreground="DarkGray">pages/index/index</Run>
+                <Run>, 根路径前不要填加</Run>
+                <Run Foreground="DarkGray"> / </Run>
+                <Run>,不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面</Run>
+            </TextBlock>
+
+            <TextBlock Margin="0,10,0,0" Text="width" Grid.Row="3" Grid.Column="0"/>
+            <TextBlock Margin="0,10,0,0" Text="number" Grid.Row="3" Grid.Column="1"/>
+            <TextBlock Margin="0,10,0,0" Text="430" Grid.Row="3" Grid.Column="2"/>
+            <TextBlock Margin="0,10,0,0" Text="否" Grid.Row="3" Grid.Column="3"/>
+            <TextBlock Margin="0,10,0,0" TextWrapping = "Wrap" Text="二维码的宽度，单位 px，最小 280px，最大 1280px" Grid.Row="3" Grid.Column="4"/>
+
+            <TextBlock Margin="0,10,0,0" Text="auto_color" Grid.Row="4" Grid.Column="0"/>
+            <TextBlock Margin="0,10,0,0" Text="boolean" Grid.Row="4" Grid.Column="1"/>
+            <TextBlock Margin="0,10,0,0" Text="false" Grid.Row="4" Grid.Column="2"/>
+            <TextBlock Margin="0,10,0,0" Text="否" Grid.Row="4" Grid.Column="3"/>
+            <TextBlock Margin="0,10,0,0" TextWrapping = "Wrap" Text="自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调，默认 false" Grid.Row="4" Grid.Column="4"/>
+
+            <TextBlock Margin="0,10,0,0" Text="line_color" Grid.Row="5" Grid.Column="0"/>
+            <TextBlock Margin="0,10,0,0" Text="Object" Grid.Row="5" Grid.Column="1"/>
+            <TextBlock Margin="0,10,0,0" Text="{}{&quot;r&quot;:0, &quot;g&quot;:0,&quot;b&quot;:0&quot;}" Grid.Row="5" Grid.Column="2" Foreground="DarkGray"/>
+            <TextBlock Margin="0,10,0,0" Text="否" Grid.Row="5" Grid.Column="3"/>
+            <TextBlock Margin="0,10,0,0" TextWrapping = "Wrap" Grid.Row="5" Grid.Column="4">
+                <Run>auto_color 为 false 时生效，使用 rgb 设置颜色 例如</Run>
+                <Run Foreground="DarkGray">{&quot;r&quot;:0, &quot;g&quot;:0,&quot;b&quot;:0&quot;}</Run>
+                <Run>十进制表示</Run>
+            </TextBlock>
+
+            <TextBlock Margin="0,10,0,0" Text="is_hyaline" Grid.Row="6" Grid.Column="0"/>
+            <TextBlock Margin="0,10,0,0" Text="boolean" Grid.Row="6" Grid.Column="1"/>
+            <TextBlock Margin="0,10,0,0" Text="false" Grid.Row="6" Grid.Column="2"/>
+            <TextBlock Margin="0,10,0,0" Text="否" Grid.Row="6" Grid.Column="3"/>
+            <TextBlock Margin="0,10,0,0" TextWrapping = "Wrap" Text="是否需要透明底色，为 true 时，生成透明底色的小程序" Grid.Row="6" Grid.Column="4"/>
+        </Grid>
 
     </Grid>
 </Page>

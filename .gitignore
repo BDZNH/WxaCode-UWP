@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /WxaCode/AppPackagesSlideLoad/WxaCode_1.0.10.0_Debug_Test
 /WxaCode/AppPackagesStore
+*.pdf
