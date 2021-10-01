@@ -9,7 +9,7 @@
   <Identity
     Name="35230BDZNH.207084FA9BF10"
     Publisher="CN=16C28CEF-6E96-4E95-B0E5-BA77A7D56B37"
-    Version="1.0.7.0" />
+    Version="1.0.9.0" />
 
   <mp:PhoneIdentity PhoneProductId="edac776f-9a99-4124-9c98-ce75411d8f9d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -37,7 +37,7 @@
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="一个用于获取微信小程序码的应用"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/>
